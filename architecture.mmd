@@ -1,0 +1,16 @@
+flowchart TD
+    A[Agentic AI eBook PDF] --> B[PyMuPDF]
+    B --> C[Page-aware text]
+    C --> D[RecursiveCharacterTextSplitter]
+    D --> E[Local HuggingFace Embeddings]
+    E --> F[(Pinecone 384D)]
+    U[User Question] --> G[LangGraph]
+    G --> H[Retrieve Top-K]
+    F --> H
+    H --> I{Relevant chunks?}
+    I -- No --> J[Grounded fallback]
+    I -- Yes --> K[Local Ollama LLM]
+    K --> L[Answer + Context + Retrieval Score]
+    J --> L
+    L --> M[FastAPI]
+    L --> N[Streamlit]
